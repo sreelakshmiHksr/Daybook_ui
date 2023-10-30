@@ -1,0 +1,12 @@
+
+.day-books {
+    flex-grow: 1;
+
+    &__empty {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
