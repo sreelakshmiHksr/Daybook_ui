@@ -2,6 +2,7 @@ import { PAYMENT_MODE } from "../enums/day-book";
 
 export type DayBook  = {
     id: string;
+    title: string;
     openingBalance: number;
     date: string;
     updatedDate: string;

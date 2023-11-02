@@ -1,0 +1,1 @@
+export const OpeningBalanceInvalid = "Opening balance should be greater than zero";
