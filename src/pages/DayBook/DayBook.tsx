@@ -1,15 +1,21 @@
-import { useState } from "react";
-import { DayBook } from "../../models/day-book";
+import { useEffect, useState } from "react";
+import { DayBook } from "../../models/day-book.model";
 
 import "./DayBook.scss";
 import FirstDayBook from "./components/FirstDayBook/FirstDayBook";
-import { Dialog } from "primereact/dialog";
-import { InputNumber } from "primereact/inputnumber";
 import DayBookModal from "./components/DayBookModal/DayBookModal";
 import { getFormattedDate } from "../../common/utils/date";
-import { OpeningBalanceInvalid } from "../../common/consts/validation";
 import DayBookList from "./components/DayBookList/DayBookList";
 import { Button } from "primereact/button";
+import {
+  DayBookExistForSameDate,
+  OpeningBalanceInvalid,
+} from "../../consts/validation";
+import { DayBookService } from "../../services/day-book.service";
+
+const getDayBookTitle = () => {
+  return `daybook-${Date.now()}`;
+};
 
 const DayBooks = () => {
   const [dayBooks, setDayBooks] = useState<DayBook[]>([]);
@@ -19,14 +25,21 @@ const DayBooks = () => {
   const [dayBookDate, setDayBookDate] = useState<string>(
     getFormattedDate(new Date())
   );
-  const [dayBookTitle, setDayBookTitle] = useState<string>(
-    `daybook-${getFormattedDate(new Date())}`
-  );
+  const [dayBookTitle, setDayBookTitle] = useState<string>(getDayBookTitle());
+
   const [dayBookValidationMessage, setDayBookValidationMessage] =
     useState<string>("");
-  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
 
   const showEmptyDayBookContent = dayBooks.length == 0;
+
+  useEffect(() => {
+    fetchDayBooks();
+  }, []);
+
+  const fetchDayBooks = async () => {
+    const dayBookList = await DayBookService.getDayBooks();
+    setDayBooks(dayBookList);
+  };
 
   const onDayBookCreate = () => {
     setShowAddDayBook(true);
@@ -34,6 +47,7 @@ const DayBooks = () => {
 
   const handleDayBookModalClose = () => {
     setShowAddDayBook(false);
+    resetFormData();
   };
 
   const handleOpeningBalanceChange = (value: number) => {
@@ -48,20 +62,27 @@ const DayBooks = () => {
     setDayBookTitle(value);
   };
 
-  const handleSubmitDayBook = () => {
-    setHasSubmitted(true);
-    const isInvalid = openingBalance <= 0;
-    setDayBookValidationMessage(
-      openingBalance <= 0 ? OpeningBalanceInvalid : ""
-    );
+  const handleSubmitDayBook = async () => {
+    let message = "";
+
+    if (openingBalance <= 0) {
+      message = OpeningBalanceInvalid;
+    } else if (await DayBookService.isExistingDayBook(dayBookDate)) {
+      message = DayBookExistForSameDate;
+    }
+
+    const isInvalid = !!message;
+
+    setDayBookValidationMessage(message);
 
     if (!isInvalid) {
       addNewDayBook();
       setShowAddDayBook(false);
+      resetFormData();
     }
   };
 
-  const addNewDayBook = () => {
+  const addNewDayBook = async () => {
     const newDayBook: DayBook = {
       date: dayBookDate,
       id: `${Date.now()}`,
@@ -69,11 +90,24 @@ const DayBooks = () => {
       openingBalance: openingBalance,
       updatedDate: new Date().toISOString(),
     };
-    setDayBooks((prev) => [...prev, newDayBook]);
+    await DayBookService.AddDayBook(newDayBook);
+
+    //TODO: Will be removed when actual service call is implemented
+    refreshData();
   };
 
   const handleAddNewDayBook = () => {
     setShowAddDayBook(true);
+  };
+
+  const refreshData = () => {
+    fetchDayBooks();
+  };
+
+  const resetFormData = () => {
+    setDayBookValidationMessage("");
+    setOpeningBalance(0);
+    setDayBookTitle(getDayBookTitle());
   };
 
   return (
@@ -85,8 +119,8 @@ const DayBooks = () => {
         ></FirstDayBook>
       )}
       {!showEmptyDayBookContent && (
-        <div>
-          <div>
+        <>
+          <div className="day-books__action">
             <Button
               label="Add new daybook"
               type="button"
@@ -94,7 +128,7 @@ const DayBooks = () => {
             />
           </div>
           <DayBookList items={dayBooks} />
-        </div>
+        </>
       )}
       {showAddDayBook && (
         <DayBookModal
@@ -102,6 +136,7 @@ const DayBooks = () => {
           title={dayBookTitle}
           errorMessage={dayBookValidationMessage}
           openingBalance={openingBalance}
+          canChangeDate
           onDateChange={handleDayBookDateChange}
           onOpeningBalanceChange={handleOpeningBalanceChange}
           onTitleChange={handleTitleChange}

@@ -75,7 +75,6 @@ const DayBookModal: FC<DayBookModalType> = ({
             disabled={isReadOnly}
             onValueChange={(e) => onOpeningBalanceChange?.(Number(e.value))}
             useGrouping={false}
-            className={`${!!errorMessage ? "p-invalid" : ""}`}
           />
         </div>
         <div className="data-field">
@@ -87,7 +86,7 @@ const DayBookModal: FC<DayBookModalType> = ({
           />
         </div>
         {errorMessage && (
-          <span className="inline-block p-inline-message p-inline-message-error">
+          <span className="inline-block top-spacer bottom-spacer p-inline-message p-inline-message-error">
             {errorMessage}
           </span>
         )}

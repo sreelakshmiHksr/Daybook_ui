@@ -1,4 +1,4 @@
-import { PAYMENT_MODE } from "../enums/day-book";
+import { PAYMENT_MODE } from "../enums/day-book.enum";
 
 export type DayBook  = {
     id: string;
