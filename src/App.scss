@@ -3,12 +3,17 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .app-header {
-    border: 1px solid rgb(89, 88, 88);
+    border: 1px solid var(--surface-200);
     padding: 0.5rem;
     border-radius: 3px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--surface-0);
 
     h2 {
         margin: 0;

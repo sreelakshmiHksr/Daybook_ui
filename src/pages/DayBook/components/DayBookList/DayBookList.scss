@@ -1,0 +1,22 @@
+@use '../../../../common/scss/utils.scss';
+
+.day-book-list {
+    list-style: none;
+    padding: 0;
+
+    &__item {
+        padding: 0.5rem;
+        border: 1px solid var(--surface-200);
+        border-radius: 3px;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.day-book-item {
+    position: relative;
+
+    &__goto-detail {
+        @extend .app-goto-route-icon;
+        right: 0.5rem;
+    }
+}

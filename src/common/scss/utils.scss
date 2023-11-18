@@ -17,3 +17,24 @@
 .bottom-spacer {
     margin-bottom: 1rem;
 }
+
+.app-icon {
+    margin-right: 0.5rem;
+}
+
+.app-goto-route-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+}
+
+.app-action-icon {
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+    }
+}
