@@ -1,5 +1,5 @@
 import { StorageKeys } from "../consts/day-book";
-import { DayBook } from "../models/day-book.model";
+import { DayBook, DayBookEntry } from "../models/day-book.model";
 import { LocalStorageService } from "./localstorage.service";
 
 export class DayBookService {
@@ -27,5 +27,27 @@ export class DayBookService {
     const data = existingDayBooks || [];
 
     return data.some((d) => d.date === date);
+  }
+
+  public static async getDayBook(dayBookId: string): Promise<DayBook | null> {
+    const existingDayBooks = LocalStorageService.getData<DayBook[]>(
+      StorageKeys.DayBooks
+    );
+
+    const result = existingDayBooks?.find((d) => d.id == dayBookId);
+    return result || null;
+  }
+
+  public static async getDayBookEntries(
+    dayBookId: string
+  ): Promise<DayBookEntry[]> {
+    const existingDayBookEntries = LocalStorageService.getData<DayBookEntry[]>(
+      StorageKeys.DayBookEntries
+    );
+
+    const result = existingDayBookEntries?.filter(
+      (d) => d.dayBookId == dayBookId
+    );
+    return result || [];
   }
 }

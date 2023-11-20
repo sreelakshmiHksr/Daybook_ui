@@ -3,6 +3,7 @@ import { PaymentMode } from "../models/day-book.model";
 
 export const StorageKeys = {
   DayBooks: "daybooks",
+  DayBookEntries: "dayBookEntries"
 };
 
 export const PaymentModValues: PaymentMode = {
