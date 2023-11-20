@@ -111,7 +111,7 @@ const DayBooks = () => {
   };
 
   return (
-    <div className="day-books">
+    <section className="day-books">
       {showEmptyDayBookContent && (
         <FirstDayBook
           onDayBookCreate={onDayBookCreate}
@@ -144,7 +144,7 @@ const DayBooks = () => {
           onSubmit={handleSubmitDayBook}
         />
       )}
-    </div>
+    </section>
   );
 };
 

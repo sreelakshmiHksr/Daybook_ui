@@ -2,7 +2,11 @@
 @use '../../common//scss/utils.scss';
 
 .day-books {
-    flex-grow: 1;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    // padding: 1rem 0;
+    flex-direction: column;
 
     &__empty {
         height: 100%;

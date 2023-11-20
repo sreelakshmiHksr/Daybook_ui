@@ -2,12 +2,24 @@ import { FC } from "react";
 import { DayBook } from "../../../../models/day-book.model";
 
 import "./DayBookList.scss";
+import { useNavigate } from "react-router-dom";
+import { AppRoutes } from "../../../../consts/routes";
 
 type DayBookListType = {
   items: DayBook[];
 };
 
 const DayBookList: FC<DayBookListType> = ({ items = [] }) => {
+
+  const navigate  = useNavigate();
+
+
+  const handleDetailClick = (dayBookId: string) => {
+    return () => {
+      navigate(`${AppRoutes.DayBooks}/${dayBookId}`);
+    };
+  };
+
   return (
     <ul className="day-book-list">
       {items.map((db) => {
@@ -20,7 +32,7 @@ const DayBookList: FC<DayBookListType> = ({ items = [] }) => {
               <span className="pi pi-calendar app-icon"></span>
               <span>{db.date}</span>
             </div>
-            <span className="pi pi-angle-double-right day-book-item__goto-detail app-action-icon"></span>
+            <span className="pi pi-angle-double-right day-book-item__goto-detail app-action-icon" onClick={handleDetailClick(db.id)}></span>
           </li>
         );
       })}
