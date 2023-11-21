@@ -3,11 +3,11 @@
 //   padding: 0;
 // }
 
+@use './common/scss/utils.scss';
 
 @import 'primeicons/primeicons.css';
         
 
-@import './common/scss/utils.scss';
 
 body {
   margin: 0;

@@ -1,3 +1,5 @@
+import { InferType } from "yup";
+import { dayBookEntryFormSchema } from "../consts/validation-schema";
 import { PAYMENT_MODE } from "../enums/day-book.enum";
 
 export type DayBook = {
@@ -29,5 +31,7 @@ export type PaymentEntry = {
 };
 
 export type PaymentMode = {
-    [key in PAYMENT_MODE]: string
-}
+  [key in PAYMENT_MODE]: string;
+};
+
+export type DayBookEntryFormValue = InferType<typeof dayBookEntryFormSchema>;

@@ -9,6 +9,7 @@ import DayBookEntryList from "./components/DayBookEntryList/DayBookEntryList";
 import { AppRoutes } from "../../consts/routes";
 import DayBookInfo from "./components/DayBookInfo/DayBookInfo";
 import FirstDayBookEntry from "./components/FirstDayBookEntry/FirstDayBookEntry";
+import DayBookEntryModal from "./components/DayBookEntryModal/DayBookEntryModal";
 
 async function getDayBook(dayBookId: string) {
   return DayBookService.getDayBook(dayBookId);
@@ -30,7 +31,7 @@ const DayBookDetail: FC = () => {
   const [showDayBookEntryModal, setShowDayBookEntryModal] =
     useState<boolean>(false);
 
-  const isDayBookEntryListEmpty = dayBookEntries.length == 0;
+  const isDayBookEntryListEmpty = dayBookEntries.length === 0;
 
   useEffect(() => {
     if (!!dayBookId) {
@@ -62,6 +63,10 @@ const DayBookDetail: FC = () => {
     setShowDayBookEntryModal(true);
   };
 
+  const handleDayBookEntryModalClose = () => {
+    setShowDayBookEntryModal(false);
+  };
+
   return (
     <section className="day-book-detail">
       {!dayBook ? (
@@ -79,6 +84,9 @@ const DayBookDetail: FC = () => {
             <DayBookEntryList items={dayBookEntries} />
           )}
         </>
+      )}
+      {showDayBookEntryModal && (
+        <DayBookEntryModal onClose={handleDayBookEntryModalClose} />
       )}
     </section>
   );
