@@ -5,9 +5,9 @@ import { DayBookEntryFormValue } from "../../../../models/day-book.model";
 import { InputNumber } from "primereact/inputnumber";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
+import { Message } from "primereact/message";
 
 import "./DayBookEntryForm.scss";
-import { Message } from "primereact/message";
 
 type DayBookEntryFormProps = {
   disabled?: boolean;
