@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+# Learning Docker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I have used a simple ReactJs application for doing hands on with Docker. Reference [Daybook UI](https://github.com/HARIKSREEE/Daybook_ui)
 
-## Available Scripts
+## Concepts I learned so far
 
-In the project directory, you can run:
+### Docker
 
-### `npm start`
+* Containers - An isolated run time which includes only the necessary resources for the application to run.
+* Images - Base artifacts for running any container. Images includes all the dependencies to run the application.
+* Dockerfile - A human readable document to specify the instrcutions for docker to create the image.
+* Volumes -  
+    1) Mount volume - Since container is an isolated runtime from the host environment, we can't persist the data by default. We can use Mount volumes to persist data in the host machine. This helps to retain the data even after stopping the container.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    2) Bind volume - In order to access a directory from host, we can use Bind volume.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Understanding of Dockerfile
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I have tried to add comment in the Dockerfile itself about my understanding of each command. [Dockerfile](https://github.com/sreelakshmiHksr/Daybook_ui/blob/main/Dockerfile)
 
-### `npm run build`
+## Docker hands on 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. After creating the image, viewing it in Docker Desktop  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+!["Docker image"](Hands_on/docker_image.png "Docker image listing in Docker Desktop")
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Running the container  
 
-### `npm run eject`
+![Running container](Hands_on/running_container.png "Running the docker container")
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ > Note: I will be updating this document as and when I complete each tasks
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
